@@ -2,6 +2,17 @@ hs.hotkey.alertDuration = 0
 hs.hints.showTitleThresh = 0
 hs.window.animationDuration = 0
 
+privatepath = hs.fs.pathToAbsolute(hs.configdir .. '/private')
+if not privatepath then
+    -- Create `~/.hammerspoon/private` directory if not exists.
+    hs.fs.mkdir(hs.configdir .. '/private')
+end
+privateconf = hs.fs.pathToAbsolute(hs.configdir .. '/private/config.lua')
+if privateconf then
+    -- Load awesomeconfig file if exists
+    require('private/config')
+end
+
 -- Use the standardized config location, if present
 custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") .. '/.config/hammerspoon/private/config.lua')
 if custom_config then
@@ -36,11 +47,9 @@ hs.loadSpoon("ModalMgr")
 -- Define default Spoons which will be loaded later
 if not hspoon_list then
     hspoon_list = {
-        -- "BingDaily",
         "KSheet",
         "SpeedMenu",
-        "WinWin",
-        "UnsplashZ"
+        "WinWin"
     }
 end
 
